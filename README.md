@@ -131,13 +131,13 @@
 >
 >    ~~~java
 >    package tech.aistar.controller;
->       
+>                      
 >    import org.springframework.web.bind.annotation.GetMapping;
 >    import org.springframework.web.bind.annotation.PostMapping;
 >    import org.springframework.web.bind.annotation.RequestMapping;
 >    import org.springframework.web.bind.annotation.RestController;
 >    import tech.aistar.model.Result;
->       
+>                      
 >    /**
 >     * 本类用来演示:
 >     *
@@ -151,7 +151,7 @@
 >        //get - 查询
 >        //delete - 删除
 >        //put - 更新
->       
+>                      
 >        /**
 >         * 接受get请求
 >         * restful一种设计架构风格
@@ -162,7 +162,7 @@
 >        public Result hello(){
 >            return new Result("200","hello-get-体验",null);
 >        }
->       
+>                      
 >        /**
 >         * 只能接受post请求
 >         * HTTP状态码 - 405
@@ -174,7 +174,7 @@
 >            return new Result("200","hello-post-体验",null);
 >        }
 >    }
->       
+>                      
 >    ~~~
 >
 >    localhost:8081/hello
@@ -307,19 +307,19 @@
 >
 >    ~~~java
 >    package tech.aistar;
->       
+>                      
 >    import org.mybatis.spring.annotation.MapperScan;
 >    import org.springframework.boot.SpringApplication;
 >    import org.springframework.boot.autoconfigure.SpringBootApplication;
->       
+>                      
 >    @SpringBootApplication
 >    @MapperScan(basePackages = "tech.aistar.mapper")
 >    public class BootJkdDemoApplication {
->       
+>                      
 >        public static void main(String[] args) {
 >            SpringApplication.run(BootJkdDemoApplication.class, args);
 >        }
->       
+>                      
 >    }
 >    ~~~
 
@@ -562,6 +562,212 @@ spring:
 > 6. UserController
 >
 >    ~~~java
->    
+>                   
 >    ~~~
->    ~~
+
+# 第三次实验
+
+> 1. 代码迁移到springboot工程中
+>
+> 2. PhoneController 
+>
+>    2-1. 调用service的查询所有产品的方法
+>
+>    2-2. 数据放入到request作用域中
+>
+>    2-3. 转发到产品的首页
+>
+> 3. **JSP -> EL表达式 -> JSTL->c标签的使用方式**
+
+> 提交地址: 
+>
+> http://xzc.cn/gZ6J6tkLor
+
+# 处理一下导航
+
+> 判别登录是成功还是不成功的?
+>
+> 需要登录成功之后,将user对象放入到session作用域
+
+> **sesssion作用域 - "容器内存中的区域",生命周期就是"一次会话期间" , 从浏览器打开 - 浏览器关闭**
+
+# TCP协议
+
+> 传输层
+>
+> 成功建立连接 - 三次握手,四次挥手
+>
+> 目的 - 就是为了在不可靠的网络中建立可靠稳定的连接.
+
+> websoket-一次tcp连接
+
+# HTTP协议
+
+> 应用层
+
+> 网络中传输的数据必须要遵守的格式.
+
+> **超文本传输协议 - 特点:无状态的协议**
+>
+> **服务器[tomcat]是不能够判别出俩次请求是来自于同一个client[客户端].**
+
+# Session的跟踪机制 - 考试
+
+> 1. 会话的跟踪机制
+> 2. cookie怎么管理session
+
+## 过程
+
+> 1. 当第一次请求http://10.132.218.243:8081/boot/ses/add?name=admin
+>
+>    当**请求第一次**到达下方代码的时候
+>
+>    ~~~java
+>    HttpSession session = req.getSession();
+>    ~~~
+>
+>    服务器就会为这个客户端在内部开辟一块session空间,并且给这个session空间分配了一个**唯一的一个id**.这个id在不同的浏览器上的名称是不一样的,chrome - **JSESSIONID=1BC4450C4370579C37E42F0EA2CE2BC6**
+>
+> 2. 通过网络进行查看的时候,发现**响应头信息中包含了**
+>
+>    ~~~java
+>    Set-Cookie: JSESSIONID=EA7C196180B582CD278288513D81FB63; Path=/boot; HttpOnly
+>    ~~~
+>
+>    说明了,服务器在server端创建了一个cookie对象.该cookie对象保存了刚刚的jsessionid,并且将这个cookie通过响应头信息
+>
+>    将这个cookie一起发送到client客户端,并且保存在客户端 - [cookie在server创建,在client存储]
+>
+> 3. 再次发送请求http://10.132.218.243:8081/boot/ses/get
+>
+>    通过网络 - 请求头信息 -  Cookie: JSESSIONID=EA7C196180B582CD278288513D81FB63
+>
+>    客户端将带有sessionid的cookie一起发送给server
+>
+> 4. server解析这个cookie,解析出seesionid之后,就可以根据这个id找出这个客户端之前的那个session空间.
+
+# JSTL
+
+> 1. 引入标签库 - core
+>
+>    在nav.jsp
+>
+>    ~~~js
+>    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+>    ~~~
+
+# SQL
+
+~~~mysql
+DROP TABLE IF EXISTS `phonetype`;
+CREATE TABLE `phonetype` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `type_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of phonetype
+-- ----------------------------
+INSERT INTO `phonetype` VALUES ('1', '小米');
+INSERT INTO `phonetype` VALUES ('2', '华为');
+INSERT INTO `phonetype` VALUES ('3', '苹果');
+
+DROP TABLE IF EXISTS `phone`;
+CREATE TABLE `phone` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `price` double(6,0) NOT NULL,
+  `intro` varchar(100) NOT NULL,
+  `phonetype_id` int(5) NOT NULL,
+  `url` varchar(300) DEFAULT NULL,
+  `status` int(1),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of phone
+-- ----------------------------
+INSERT INTO `phone` VALUES ('1', '华为畅享9plus', '1199', '【最高直降200】Huawei/华为 畅享9 Plus 全面屏超清大屏四摄学生智能手机畅享9p', '2', '001.webp',1);
+
+INSERT INTO `phone` VALUES ('2', 'iPhone XS Max', '8888', '【下单立减300元】Apple/苹果 iPhone Xs Max 256G 全网通4G手机 双卡双待苹果iphonexsmax', '3', '002.webp',0);
+
+INSERT INTO `phone` VALUES ('3', ' 小米9', '3700', 'Xiaomi/小米 小米9透明九se故宫版10尊享探索plus全新手机骁龙855', '1', '003.webp',1);
+
+INSERT INTO `phone` VALUES ('4', '华为p30', '4488', '【6期免息】Huawei/华为 P30全面屏超感光徕卡三摄变焦双景录像980芯片智能手机p30', '2', '004.webp',1);
+
+INSERT INTO `phone` VALUES ('5', 'iPhone 8', '3400', '【下单立减190元】Apple/苹果 iPhone 8 64G 移动联通电信全网通4G手机 官方正品苹果iPhone8', '3', '005.webp',1);
+
+INSERT INTO `phone` VALUES ('6', 'RedMi手表', '299', '【下单立减190元】Apple/苹果 iPhone 8 64G 移动联通电信全网通4G手机 官方正品苹果iPhone8', '3', '006.webp',1);
+
+INSERT INTO `phone` VALUES ('7', 'RedMi青春版', '299', '【下单立减190元】Apple/苹果 iPhone 8 64G 移动联通电信全网通4G手机 官方正品苹果iPhone8', '3', '007.webp',1);
+
+INSERT INTO `phone` VALUES ('8', 'RedMi豪华版', '699', '【下单立减190元】Apple/苹果 iPhone 8 64G 移动联通电信全网通4G手机 官方正品苹果iPhone8', '3', '008.webp',1);
+
+INSERT INTO `phone` VALUES ('9', 'RedMi乞丐版', '599', '【下单立减190元】Apple/苹果 iPhone 8 64G 移动联通电信全网通4G手机 官方正品苹果iPhone8', '3', '009.webp',1);
+
+~~~
+
+# 任务清单
+
+> 1. 处理导航,登录和未登录显示内容不一样   √
+>
+> 2. 首页手机数据展示  √
+>
+> 3. 首页搜索任务  √
+>
+>    ~~~java
+>    Elasticsearch 分布式的搜索引擎技术
+>    solr
+>    ~~~
+>
+> 4. 加入购物车
+>
+>    | id   | phone_id | name          | url      | price | intro | num  | total | user_id | create_date | status |      |      |      |      |      |      |      |      |      |
+>    | ---- | -------- | ------------- | -------- | ----- | ----- | ---- | ----- | ------- | ----------- | ------ | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+>    | 1    | 1        | 华为畅享9plus | 001.webp | 1199  | ....  | 2    | 1199  | 1       |             | 0      |      |      |      |      |      |      |      |      |      |
+>    |      |          |               |          |       |       |      |       |         |             |        |      |      |      |      |      |      |      |      |      |
+>    |      |          |               |          |       |       |      |       |         |             |        |      |      |      |      |      |      |      |      |      |
+>
+>    
+
+# 实验四任务
+
+> 购物车(1)
+
+# 实验五任务
+
+> 购物车(2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
