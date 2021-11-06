@@ -13,5 +13,5 @@ import java.util.List;
  */
 
 public interface IPhoneService extends Serializable {
-    List<Phone> findAll();
+    List<Phone> loadAll();
 }

@@ -30,7 +30,7 @@ public class TestController {
     public ModelAndView testFindAll(){
         ModelAndView mav = new ModelAndView();
         mav.setViewName("phone/h1");
-        List<Phone> phoneList= phoneService.findAll();
+        List<Phone> phoneList= phoneService.loadAll();
         mav.addObject("phoneList", phoneList);
         return mav;
     }

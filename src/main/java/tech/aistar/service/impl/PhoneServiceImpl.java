@@ -25,7 +25,7 @@ public class PhoneServiceImpl implements IPhoneService {
     private PhoneMapper phoneMapper;
 
     @Override
-    public List<Phone> findAll(){
+    public List<Phone> loadAll(){
         return phoneMapper.findAll();
     }
 }
