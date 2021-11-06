@@ -5,7 +5,8 @@
   Time: 2:10 下午
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <nav class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
@@ -21,14 +22,24 @@
         </div>
         <div class="collapse navbar-collapse" id="example-navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="#">首页</a></li>
+
+                <c:if test="${user!=null}">
+                    <%--                    //1. OGNL--%>
+                    <%--                    //2. 反射--%>
+                    <li><a href="#">${user.username}</a></li>
+                </c:if>
+
+                <li class="active"><a href="/boot/phone/index">首页</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#myModal">登录</a></li>
                 <li><a href="#">注册</a></li>
-                <li><a href="#">安全退出</a></li>
                 <li><a href="#">我的购物车</a></li>
-                <li><a href="#">我的订单</a></li>
-                <li><a href="#">我的收藏</a></li>
-                <li><img style="width: 50px;height: 50px;border-radius: 50%;padding: 2px" src="/boot/imgs/1.jpg" alt="1"></li>
+
+                <c:if test="${user!=null}">
+                    <li><a href="/boot/phone/exit">安全退出</a></li>
+                    <li><a href="#">我的收藏</a></li>
+                    <li><a href="#">我的订单</a></li>
+                    <li><img style="width: 50px;height: 50px;border-radius: 50%;padding: 2px" src="/boot/imgs/1.jpg"></li>
+                </c:if>
             </ul>
         </div>
     </div>
@@ -42,20 +53,20 @@
                 <h4 class="modal-title" id="myModalLabel">用户登录入口</h4>
             </div>
             <div class="modal-body">
-<%--                登录表单--%>
+                <%--                登录表单--%>
                 <form id="login_form" class="form-horizontal" role="form">
                     <div class="form-group has-feedback">
-                        <label for="firstname" class="col-md-2 control-label">用户名</label>
+                        <label for="username" class="col-md-2 control-label">用户名</label>
                         <div class="col-md-8">
-                            <input name="username" type="text" class="form-control" id="firstname" placeholder="请输入用户名">
+                            <input name="username" type="text" class="form-control" id="username" placeholder="请输入用户名">
                             <span class="form-control-feedback glyphicon glyphicon-user"></span>
                             <label class="text-danger" id="username_label"></label>
-                         </div>
+                        </div>
                     </div>
                     <div class="form-group has-feedback">
-                        <label for="lastname" class="col-md-2 control-label">密码</label>
+                        <label for="password" class="col-md-2 control-label">密码</label>
                         <div class="col-md-8">
-                            <input name="password" type="password" class="form-control" id="lastname" placeholder="请输入密码">
+                            <input name="password" type="password" class="form-control" id="password" placeholder="请输入密码">
                             <span class="form-control-feedback glyphicon glyphicon-lock"></span>
                             <label class="text-danger" id="password_label"></label>
                         </div>
@@ -64,14 +75,14 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox">请记住我
+                                    <input type="checkbox" id="me">请记住我
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-<%--                            修改成一个普通,通过单击事件进行返送--%>
+                            <%--                            修改成一个普通,通过单击事件进行返送--%>
                             <button type="button" onclick="login()" class="btn btn-default">登录</button>
                         </div>
                     </div>
@@ -81,8 +92,44 @@
     </div><!-- /.modal -->
 </div>
 <script>
+    //当dom加载完毕之后才会执行
+    $(function(){
+        //尝试从本地存储中获取数据
+        let uname = localStorage.getItem("username");
+        let pwd = localStorage.getItem("password");
+
+        $("#username").val(uname)
+        $("#password").val(pwd);
+
+        if(null!=uname && null!=pwd){
+            let ck = document.getElementById("me");
+            ck.checked=true;
+        }
+
+    })
+
     //定义一个login函数
     function login(){
+        //1. 是否记住密码
+        //获取ck对象
+        let ck = document.getElementById("me");
+        if(ck.checked){
+            //获取俩个文本框中的数据
+            let username = $("#username").val();
+            let password = $("#password").val();
+
+            //存入到本地 - 浏览器
+            localStorage.setItem("username",username);
+            localStorage.setItem("password",password);
+        }else{
+            //清除本地缓存
+            //localStorage.removeItem("username");
+
+            localStorage.clear();
+        }
+
+
+
         $("#username_label").text("");
         $("#password_label").text("");
         //jquery代码
@@ -112,7 +159,10 @@
             }else if(result.code==500){
                 $("#password_label").text(result.msg);
             }else{
-                window.location="http://www.bing.com";
+                //WEB-INF安全最高的目录 - 不能通过浏览器的方式进行访问
+                //只能通过后台转发的方式访问.
+                //登录成功 - 从浏览器client发送请求
+                window.location="/boot/phone/index";
             }
         })
     }
