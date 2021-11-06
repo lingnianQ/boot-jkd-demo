@@ -21,7 +21,7 @@ public class PhoneMapperTest {
 
     @Test
     public void testGetAll(){
-        List<Phone> list= phoneMapper.getAll("红");
+        List<Phone> list= phoneMapper.getAll("Red");
         if(null!=list){
             for (Phone phone : list) {
                 System.out.println(phone);

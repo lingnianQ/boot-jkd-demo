@@ -47,7 +47,7 @@
                     <div class="caption">
                         <h3 class="text-center text-info">${p.phoneName}</h3>
                         <p class="text-center text-danger">价格:${p.price}</p>
-                        <p class="text-success">${p.remark}</p>
+                        <p class="text-success text-center" >${p.remark}</p>
                     </div>
                 </div>
             </div>
