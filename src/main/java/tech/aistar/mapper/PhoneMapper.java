@@ -21,6 +21,8 @@ public interface PhoneMapper {
     @Select("select * from t_phone")
     List<Phone> findAll();
 
+    List<Phone> getAll(String name);
+
     /**
      * 根据id进行查询 - id是主键列 - 能够唯一确定一行[元组] - 唯一
      * 主键列特点 - 非空且唯一的.

@@ -17,15 +17,15 @@ import java.util.List;
  */
 @Service // 让service层的类交给spring进行管理
 public class PhoneServiceImpl implements IPhoneService {
-    //service层调用Mapper层
-    //mapper层 - 和db进行交互的
-    //service层 - 调用mapper层,进行数据的业务逻辑处理
-
     @Autowired
     private PhoneMapper phoneMapper;
+    @Override
+    public List<Phone> loadAll() {
+        return phoneMapper.findAll();
+    }
 
     @Override
-    public List<Phone> loadAll(){
-        return phoneMapper.findAll();
+    public List<Phone> loadAll(String name) {
+        return phoneMapper.getAll(name);
     }
 }

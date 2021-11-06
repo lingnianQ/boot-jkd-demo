@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.aistar.mapper.PhoneMapper">
+
+    <!--    id一定要等于方法的名称-->
+    <select id="getAll" parameterType="string" resultType="phone">
+        select * from t_phone
+        <where>
+            <if test="name!=null">
+                and phoneName like concat('%',#{phoneName},'%')
+            </if>
+        </where>
+    </select>
+</mapper>
