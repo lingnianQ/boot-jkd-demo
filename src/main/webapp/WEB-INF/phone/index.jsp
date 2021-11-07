@@ -36,10 +36,30 @@
     </div>
 </div>
 
+<%--&lt;%&ndash;    ${作用域中的key}&ndash;%&gt;--%>
+<%--<div class="container-fluid" id="phone">--%>
+<%--    <div class="row">--%>
+<%--        <c:forEach items="${phoneList}" var="p">--%>
+<%--            <div class="col-sm-6 col-md-3">--%>
+<%--                <div class="thumbnail">--%>
+<%--                    <img src="/boot/imgs/${p.urls}"--%>
+<%--                         alt="通用的占位符缩略图">--%>
+<%--                    <div class="caption">--%>
+<%--                        <h3 class="text-center text-info">${p.phoneName}</h3>--%>
+<%--                        <p class="text-center text-danger">价格:${p.price}</p>--%>
+<%--                        <p class="text-success text-center" >${p.remark}</p>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </c:forEach>--%>
+<%--    </div>--%>
+<%--</div>--%>
+
+
 <%--    ${作用域中的key}--%>
 <div class="container-fluid" id="phone">
     <div class="row">
-        <c:forEach items="${phoneList}" var="p">
+        <c:forEach items="${pageInfo.list}" var="p">
             <div class="col-sm-6 col-md-3">
                 <div class="thumbnail">
                     <img src="/boot/imgs/${p.urls}"
@@ -53,6 +73,27 @@
             </div>
         </c:forEach>
     </div>
+</div>
+
+<div class="page text-right clearfix" style="text-align: center">
+<%--     当前页为第一页时href="javascript:void(0)" 禁用 a 标签的点击时间事件--%>
+<%--                                        当前页不是第一页时请求url 中返回currentPage=${pageInfo.pageNum - 1 } 当前页 -1--%>
+
+
+    <a <c:if test="${pageInfo.pageNum != pageInfo.firstPage}">href="${pageContext.request.contextPath}/phone/index?currentPage=${pageInfo.pageNum - 1 }"</c:if>
+            <c:if test="${pageInfo.pageNum == pageInfo.firstPage}"> href="javascript:void(0)" class="disabled"</c:if>
+    >上一页</a>
+    <!-- foreach 从 1 开始 到 总页数结束  遍历输出 -->
+    <c:forEach begin="1" end="${pageInfo.pages }" varStatus="status">
+        <a href="${pageContext.request.contextPath}/phone/index?currentPage=${status.count }"
+           <c:if test="${status.count == pageInfo.pageNum}">class="select"</c:if>>${status.count }</a>
+    </c:forEach>
+<%--   当前页为最后一页时href="javascript:void(0)" 禁用 a 标签的点击时间事件--%>
+<%--                                        当前页不是最后一页时请求url 中返回currentPage=${pageInfo.pageNum - 1 } 当前页 -1--%>
+
+    <a <c:if test="${pageInfo.pageNum == pageInfo.lastPage}">class="disabled" href="javascript:void(0)"</c:if>
+       <c:if test="${pageInfo.pageNum != pageInfo.lastPage}">href="${pageContext.request.contextPath}/phone/index?currentPage=${pageInfo.pageNum + 1 }"</c:if>
+    >下一页</a>
 </div>
 
     <script src="/boot/plugins/bs/js/bootstrap.min.js"></script>

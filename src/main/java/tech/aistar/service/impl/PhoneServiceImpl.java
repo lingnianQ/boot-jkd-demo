@@ -1,5 +1,7 @@
 package tech.aistar.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.aistar.mapper.PhoneMapper;
@@ -25,7 +27,9 @@ public class PhoneServiceImpl implements IPhoneService {
     }
 
     @Override
-    public List<Phone> loadAll(String name) {
+    public List<Phone> loadAll(String name,Integer currentPage) {
+        PageHelper.startPage(currentPage,7);
         return phoneMapper.getAll(name);
     }
+
 }
