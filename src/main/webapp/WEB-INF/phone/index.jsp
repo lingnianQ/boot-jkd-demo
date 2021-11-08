@@ -58,29 +58,31 @@
 <div class="page text-center clearfix" >
 <%--     当前页为第一页时href="javascript:void(0)" 禁用 a 标签的点击时间事件--%>
 <%--                                        当前页不是第一页时请求url 中返回currentPage=${pageInfo.pageNum - 1 } 当前页 -1--%>
-
-
-    <a <c:if test="${pageInfo.pageNum != pageInfo.firstPage}">href="${pageContext.request.contextPath}/phone/index?currentPage=${pageInfo.pageNum - 1 }"</c:if>
-            <c:if test="${pageInfo.pageNum == pageInfo.firstPage}"> href="javascript:void(0)" class="disabled"</c:if>
+    <a      <c:if test="${pageInfo.pageNum == pageInfo.firstPage}"> href="javascript:void(0)" class="disabled"</c:if>
+            <c:if test="${pageInfo.pageNum != pageInfo.firstPage;empty name}">href="${pageContext.request.contextPath}/phone/index?currentPage=${pageInfo.pageNum - 1 }"</c:if>
+            <c:if test="${pageInfo.pageNum != pageInfo.firstPage;not empty name}">href="${pageContext.request.contextPath}/phone/index?currentPage=${pageInfo.pageNum - 1 }&name=${name}"</c:if>
     ><strong class="h1">上一页</strong></a>
     <!-- foreach 从 1 开始 到 总页数结束  遍历输出 -->
     <c:forEach begin="1" end="${pageInfo.pages }" varStatus="status">
-        <a href="${pageContext.request.contextPath}/phone/index?currentPage=${status.count }"
+        <a <c:if test="${pageInfo.pageNum != pageInfo.firstPage;empty name}">href="${pageContext.request.contextPath}/phone/index?currentPage=${status.count }"</c:if>
+           <c:if test="${pageInfo.pageNum != pageInfo.firstPage;not empty name}">href="${pageContext.request.contextPath}/phone/index?currentPage=${status.count}&name=${name}"</c:if>
            <c:if test="${status.count == pageInfo.pageNum}">class="select"</c:if>><strong class="h1">${status.count }</strong></a>
     </c:forEach>
 <%--   当前页为最后一页时href="javascript:void(0)" 禁用 a 标签的点击时间事件--%>
 <%--                                        当前页不是最后一页时请求url 中返回currentPage=${pageInfo.pageNum - 1 } 当前页 -1--%>
 
-    <a <c:if test="${pageInfo.pageNum == pageInfo.lastPage}">class="disabled" href="javascript:void(0)"</c:if>
-       <c:if test="${pageInfo.pageNum != pageInfo.lastPage}">href="${pageContext.request.contextPath}/phone/index?currentPage=${pageInfo.pageNum + 1 }"</c:if>
+    <a      <c:if test="${pageInfo.pageNum == pageInfo.lastPage}">class="disabled" href="javascript:void(0)"</c:if>
+            <c:if test="${pageInfo.pageNum != pageInfo.lastPage;empty name}">href="${pageContext.request.contextPath}/phone/index?currentPage=${pageInfo.pageNum + 1 }"</c:if>
+            <c:if test="${pageInfo.pageNum != pageInfo.lastPage;not empty name}">href="${pageContext.request.contextPath}/phone/index?currentPage=${pageInfo.pageNum + 1 }&name=${name}"</c:if>
     ><strong class="h1">下一页</strong></a>
+<%--    <button type="button" onclick="pageNext()">1234</button>--%>
 </div>
 
     <script src="/boot/plugins/bs/js/bootstrap.min.js"></script>
     <script>
         function search(){
             let phoneName = $("#phoneName").val();
-            window.location='/boot/phone/index?name='+phoneName;
+            window.location='/boot/phone/index?currentPage=1&'+'name='+phoneName;
         }
     </script>
 </body>
