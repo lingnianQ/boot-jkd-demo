@@ -1,10 +1,13 @@
 package tech.aistar.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.aistar.mapper.CartMapper;
 import tech.aistar.model.Cart;
 import tech.aistar.service.ICartService;
+
+import java.util.List;
 
 
 @Service
@@ -27,4 +30,16 @@ public class CartServiceImpl implements ICartService {
     public int update(Integer id) {
         return cartMapper.update(id);
     }
+
+    @Override
+    public List<Cart> loadAll(Integer currentPage) {
+        PageHelper.startPage(currentPage,5);
+        return cartMapper.getAll();
+    }
+
+    @Override
+    public int delById(Integer id) {
+        return cartMapper.delById(id);
+    }
+
 }

@@ -1,10 +1,9 @@
 package tech.aistar.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import tech.aistar.model.Cart;
+
+import java.util.List;
 
 /**
  * Create with Intellij IDEA
@@ -21,4 +20,13 @@ public interface CartMapper {
 
     @Update("update shop_cart set num=num+1,total=num*price where id=#{id}")
     int update(Integer id);
+
+    @Select("select * from shop_cart")
+    List<Cart> findAll();
+
+    @Delete("delete from shop_cart where id=#{id}")
+    int delById(Integer id);
+
+    @Select("select * from shop_cart")
+    List<Cart> getAll();
 }

@@ -3,12 +3,12 @@
 > 1. servlet技术 - 属于javaee技术体系 - 传统的web技术 - 写法比较繁琐
 >
 > 2. springmvc框架 - ssm框架 - spring+springmvc+mybatis
->
->    springmvc框架基于servlet技术,对servlet技术封装
+     >
+     >    springmvc框架基于servlet技术,对servlet技术封装
 >
 > 3. springboot框架
->
->    比springmvc的配置更加精简.
+     >
+     >    比springmvc的配置更加精简.
 
 > 使用springboot快速搭建微服务项目.
 >
@@ -19,30 +19,30 @@
 > 1. jdk - JAVA_HOME
 >
 > 2. **maven**或者**gradle**
->
->    项目的构建工具以及项目的依赖[传统项目中的那个jar包]管理工具
+     >
+     >    项目的构建工具以及项目的依赖[传统项目中的那个jar包]管理工具
 
 ## 安装maven
 
 > 1. 官网下载 - https://maven.apache.org/download.cgi
 >
 > 2. 环境变量的配置
->
->    定位到系统变量 
->
->    2-1. 新建  变量名:MAVEN_HOME
->
->    2-2 		   变量值:/Users/admin/Documents/success/d/apache-maven-3.3.9 - maven解压的根目录
+     >
+     >    定位到系统变量
+     >
+     >    2-1. 新建  变量名:MAVEN_HOME
+     >
+     >    2-2 		   变量值:/Users/admin/Documents/success/d/apache-maven-3.3.9 - maven解压的根目录
 >
 > 3. 找到Path - 编辑 - 新增
->
->    %MAVEN_HONE%\bin
+     >
+     >    %MAVEN_HONE%\bin
 >
 > 4. 点击确定 - 关闭所有的窗口
 >
 > 5. 打开终端[cmd窗口],输入查看maven版本号的命令
->
->    ~~~cmd
+     >
+     >    ~~~cmd
 >    mvn -v
 >    ~~~
 
@@ -51,8 +51,8 @@
 > 1. 在maven的解压的目录下新建一个目录repo
 >
 > 2. 进入用户主目录,查看是否存在**.m2目录**
->
->    ~~~xml
+     >
+     >    ~~~xml
 >    <?xml version="1.0" encoding="UTF-8"?>
 >    <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
 >              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -90,8 +90,8 @@
 # 体验一下
 
 > 1. 添加了一个lombok依赖
->
->    ~~~xml
+     >
+     >    ~~~xml
 >     <dependency>
 >       <groupId>org.projectlombok</groupId>
 >       <artifactId>lombok</artifactId>
@@ -99,8 +99,8 @@
 >    ~~~
 >
 > 2. 定制后端统一返回的对象
->
->    ~~~java
+     >
+     >    ~~~java
 >    package tech.aistar.model;
 >    
 >    import lombok.AllArgsConstructor;
@@ -128,16 +128,16 @@
 >    ~~~
 >
 > 3. 编写HelloController控制器
->
->    ~~~java
+     >
+     >    ~~~java
 >    package tech.aistar.controller;
->                      
+>                               
 >    import org.springframework.web.bind.annotation.GetMapping;
 >    import org.springframework.web.bind.annotation.PostMapping;
 >    import org.springframework.web.bind.annotation.RequestMapping;
 >    import org.springframework.web.bind.annotation.RestController;
 >    import tech.aistar.model.Result;
->                      
+>                               
 >    /**
 >     * 本类用来演示:
 >     *
@@ -151,7 +151,7 @@
 >        //get - 查询
 >        //delete - 删除
 >        //put - 更新
->                      
+>                               
 >        /**
 >         * 接受get请求
 >         * restful一种设计架构风格
@@ -162,7 +162,7 @@
 >        public Result hello(){
 >            return new Result("200","hello-get-体验",null);
 >        }
->                      
+>                               
 >        /**
 >         * 只能接受post请求
 >         * HTTP状态码 - 405
@@ -174,18 +174,18 @@
 >            return new Result("200","hello-post-体验",null);
 >        }
 >    }
->                      
+>                               
 >    ~~~
->
->    localhost:8081/hello
+     >
+     >    localhost:8081/hello
 
 
 
 # Springboot整合mybatis
 
 > 1. 导入依赖并且刷新
->
->    ~~~xml
+     >
+     >    ~~~xml
 >     <dependency>
 >       <groupId>mysql</groupId>
 >       <artifactId>mysql-connector-java</artifactId>
@@ -205,8 +205,8 @@
 >    ~~~
 >
 > 2. application.yml
->
->    ~~~yml
+     >
+     >    ~~~yml
 >    server:
 >      port: 8081
 >      servlet:
@@ -225,8 +225,8 @@
 >    ~~~
 >
 > 3. 实体类
->
->    ~~~java
+     >
+     >    ~~~java
 >    package tech.aistar.model;
 >    
 >    
@@ -250,8 +250,8 @@
 >    ~~~
 >
 > 4. 编写mapper层 - UserMapper.java - 接口
->
->    ~~~java
+     >
+     >    ~~~java
 >    package tech.aistar.mapper;
 >    
 >    import org.apache.catalina.User;
@@ -274,10 +274,10 @@
 >    ~~~
 >
 > 5. 单元测试 src/test/java
->
->    单元测试的包名要和上面测试接口的包名保持一致
->
->    ~~~java
+     >
+     >    单元测试的包名要和上面测试接口的包名保持一致
+     >
+     >    ~~~java
 >    package tech.aistar.mapper;
 >    
 >    import org.junit.jupiter.api.Test;
@@ -304,22 +304,22 @@
 >    ~~~
 >
 > 6. 主程序上添加扫包注解 - mapper动态代理
->
->    ~~~java
+     >
+     >    ~~~java
 >    package tech.aistar;
->                      
+>                               
 >    import org.mybatis.spring.annotation.MapperScan;
 >    import org.springframework.boot.SpringApplication;
 >    import org.springframework.boot.autoconfigure.SpringBootApplication;
->                      
+>                               
 >    @SpringBootApplication
 >    @MapperScan(basePackages = "tech.aistar.mapper")
 >    public class BootJkdDemoApplication {
->                      
+>                               
 >        public static void main(String[] args) {
 >            SpringApplication.run(BootJkdDemoApplication.class, args);
 >        }
->                      
+>                               
 >    }
 >    ~~~
 
@@ -335,23 +335,23 @@
 > </dependency>
 > ~~~
 >
-> 
+>
 
 > Springboot本身对jsp支持不是特别友好的.
 >
 > 1. src/main下新建一个目录webapp目录
->
->    就是用来存储前端资源的目录以及jsp文件.
+     >
+     >    就是用来存储前端资源的目录以及jsp文件.
 >
 > 2. src/main/webapp/WEB-INF - 是一个安全级别比较高的目录.
->
->    不能够直接通过浏览器进行直接的访问,必须是通过转发的方式才能访问.
->
->    **WEB-INF目录就是用来存放JSP文件的**
+     >
+     >    不能够直接通过浏览器进行直接的访问,必须是通过转发的方式才能访问.
+     >
+     >    **WEB-INF目录就是用来存放JSP文件的**
 >
 > 3. 拷贝一个web.xml - web项目的描述性文件
->
->    ~~~xml
+     >
+     >    ~~~xml
 >    <?xml version="1.0" encoding="UTF-8"?>
 >    <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 >             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -361,26 +361,26 @@
 >    ~~~
 
 > 4. 设置webapp目录为web资源目录
->
->    File - Project Structure - Facets
->
->    4-1. 添加web.xml的位置
->
->    4-2. webapp的位置
+     >
+     >    File - Project Structure - Facets
+     >
+     >    4-1. 添加web.xml的位置
+     >
+     >    4-2. webapp的位置
 
 # 返回的形式
 
 > 1. 直接返回一个json字符串,使用到的是@RestController
->
->    ~~~java
+     >
+     >    ~~~java
 >    @RestController = @Controller + @ResponseBody
 >    ~~~
 >
 > 2. 转发或者重定向
->
->    2-1. 转发到页面/另外一个后台
->
->    2-2. 重定向到另外一个后台
+     >
+     >    2-1. 转发到页面/另外一个后台
+     >
+     >    2-2. 重定向到另外一个后台
 
 ## 转发到Jsp
 
@@ -460,15 +460,15 @@ spring:
 # 登录任务实现
 
 > 1. UserMapper.java
->
->    ~~~java
+     >
+     >    ~~~java
 >    @Select("select * from t_user where username=#{username}")
 >    User findByUsername(String username);
 >    ~~~
 >
 > 2. IUserService.java
->
->    ~~~java
+     >
+     >    ~~~java
 >    package tech.aistar.service;
 >    
 >    import tech.aistar.model.User;
@@ -492,8 +492,8 @@ spring:
 >    ~~~
 >
 > 3. UserServiceImpl.java
->
->    ~~~java
+     >
+     >    ~~~java
 >    package tech.aistar.service.impl;
 >    
 >    import org.springframework.beans.factory.annotation.Autowired;
@@ -527,8 +527,8 @@ spring:
 >    ~~~
 >
 > 4. mapper接口和service都是需要单独进行测试的
->
->    ~~~java
+     >
+     >    ~~~java
 >    package tech.aistar.service;
 >    
 >    import org.junit.jupiter.api.Test;
@@ -555,31 +555,31 @@ spring:
 >    ~~~
 >
 > 5. 前端ajax发送数据代码
->
->    ~~~js
+     >
+     >    ~~~js
 >    ~~~
 >
 > 6. UserController
->
->    ~~~java
->                   
+     >
+     >    ~~~java
+>                            
 >    ~~~
 
 # 第三次实验
 
 > 1. 代码迁移到springboot工程中
 >
-> 2. PhoneController 
->
->    2-1. 调用service的查询所有产品的方法
->
->    2-2. 数据放入到request作用域中
->
->    2-3. 转发到产品的首页
+> 2. PhoneController
+     >
+     >    2-1. 调用service的查询所有产品的方法
+     >
+     >    2-2. 数据放入到request作用域中
+     >
+     >    2-3. 转发到产品的首页
 >
 > 3. **JSP -> EL表达式 -> JSTL->c标签的使用方式**
 
-> 提交地址: 
+> 提交地址:
 >
 > http://xzc.cn/gZ6J6tkLor
 
@@ -619,40 +619,40 @@ spring:
 ## 过程
 
 > 1. 当第一次请求http://10.132.218.243:8081/boot/ses/add?name=admin
->
->    当**请求第一次**到达下方代码的时候
->
->    ~~~java
+     >
+     >    当**请求第一次**到达下方代码的时候
+     >
+     >    ~~~java
 >    HttpSession session = req.getSession();
 >    ~~~
->
->    服务器就会为这个客户端在内部开辟一块session空间,并且给这个session空间分配了一个**唯一的一个id**.这个id在不同的浏览器上的名称是不一样的,chrome - **JSESSIONID=1BC4450C4370579C37E42F0EA2CE2BC6**
+     >
+     >    服务器就会为这个客户端在内部开辟一块session空间,并且给这个session空间分配了一个**唯一的一个id**.这个id在不同的浏览器上的名称是不一样的,chrome - **JSESSIONID=1BC4450C4370579C37E42F0EA2CE2BC6**
 >
 > 2. 通过网络进行查看的时候,发现**响应头信息中包含了**
->
->    ~~~java
+     >
+     >    ~~~java
 >    Set-Cookie: JSESSIONID=EA7C196180B582CD278288513D81FB63; Path=/boot; HttpOnly
 >    ~~~
->
->    说明了,服务器在server端创建了一个cookie对象.该cookie对象保存了刚刚的jsessionid,并且将这个cookie通过响应头信息
->
->    将这个cookie一起发送到client客户端,并且保存在客户端 - [cookie在server创建,在client存储]
+     >
+     >    说明了,服务器在server端创建了一个cookie对象.该cookie对象保存了刚刚的jsessionid,并且将这个cookie通过响应头信息
+     >
+     >    将这个cookie一起发送到client客户端,并且保存在客户端 - [cookie在server创建,在client存储]
 >
 > 3. 再次发送请求http://10.132.218.243:8081/boot/ses/get
->
->    通过网络 - 请求头信息 -  Cookie: JSESSIONID=EA7C196180B582CD278288513D81FB63
->
->    客户端将带有sessionid的cookie一起发送给server
+     >
+     >    通过网络 - 请求头信息 -  Cookie: JSESSIONID=EA7C196180B582CD278288513D81FB63
+     >
+     >    客户端将带有sessionid的cookie一起发送给server
 >
 > 4. server解析这个cookie,解析出seesionid之后,就可以根据这个id找出这个客户端之前的那个session空间.
 
 # JSTL
 
 > 1. 引入标签库 - core
->
->    在nav.jsp
->
->    ~~~js
+     >
+     >    在nav.jsp
+     >
+     >    ~~~js
 >    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 >    ~~~
 
@@ -715,59 +715,57 @@ INSERT INTO `phone` VALUES ('9', 'RedMi乞丐版', '599', '【下单立减190元
 > 2. 首页手机数据展示  √
 >
 > 3. 首页搜索任务  √
->
->    ~~~java
+     >
+     >    ~~~java
 >    Elasticsearch 分布式的搜索引擎技术
 >    solr
 >    ~~~
 >
 > 4. 加入购物车
+     >
+     >    | id   | phone_id | name          | url      | price | intro | num  | total | user_id | create_date | status |      |      |      |      |      |      |      |      |      |
+     >    | ---- | -------- | ------------- | -------- | ----- | ----- | ---- | ----- | ------- | ----------- | ------ | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+     >    | 1    | 1        | 华为畅享9plus | 001.webp | 1199  | ....  | 2    | 1199  | 1       |             | 0      |      |      |      |      |      |      |      |      |      |
+     >    |      |          |               |          |       |       |      |       |         |             |        |      |      |      |      |      |      |      |      |      |
+     >    |      |          |               |          |       |       |      |       |         |             |        |      |      |      |      |      |      |      |      |      |
+     >
+     >    ~~~mysql
+>    drop table cart;
+>    create table cart(
+>    	id int(7) primary key auto_increment,
+>      phone_id int(7),
+>      name varchar(20),
+>      url varchar(20),
+>      price double(101,2),
+>      intro varchar(20),
+>      num int(7),
+>      total double(10,2),
+>      user_id int(7),
+>      create_date datetime,
+>      status int(1)
+>    );
+>    ~~~
 >
->    | id   | phone_id | name          | url      | price | intro | num  | total | user_id | create_date | status |      |      |      |      |      |      |      |      |      |
->    | ---- | -------- | ------------- | -------- | ----- | ----- | ---- | ----- | ------- | ----------- | ------ | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
->    | 1    | 1        | 华为畅享9plus | 001.webp | 1199  | ....  | 2    | 1199  | 1       |             | 0      |      |      |      |      |      |      |      |      |      |
->    |      |          |               |          |       |       |      |       |         |             |        |      |      |      |      |      |      |      |      |      |
->    |      |          |               |          |       |       |      |       |         |             |        |      |      |      |      |      |      |      |      |      |
+
+# 实验四任务 - 添加购物车
+
+> 购物车(1)  - 添加购物车
 >
->    
+> http://xzc.cn/QzyPYikv1a
 
-# 实验四任务
+# 实验五任务 - 购物车展示
 
-> 购物车(1)
+> 购物车(2) - 查看购物车
+>
+> 要求:
+>
+> 1. 使用table[响应式表格]来展示购物车中的数据
+> 2. 能够实现使用标签页来**分页展示**购物车中数据
+> 3. http://xzc.cn/qH805H8CEd
 
-# 实验五任务
+# 实验六任务 - 购物车操作
 
-> 购物车(2)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+> 1. 在购物车页面,能够使用**ajax技术**来修改购物车的商品购买数量
+> 2. 能够实现删除单个和批量删除购物车信息
+> 3. **附加题 - 异步删除**
+> 4. http://xzc.cn/c4cf5OMsW4

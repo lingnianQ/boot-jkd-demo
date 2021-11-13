@@ -1,10 +1,9 @@
 package tech.aistar.controller;
 
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import tech.aistar.model.Cart;
 import tech.aistar.model.Phone;
 import tech.aistar.model.Result;
@@ -15,6 +14,7 @@ import tech.aistar.service.IPhoneService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Create with Intellij IDEA
@@ -30,6 +30,23 @@ public class CartController {
 
     @Autowired
     private IPhoneService phoneService;
+
+    @GetMapping("/index")
+    public String index(HttpServletRequest request, @RequestParam(value = "currentPage",required=false,defaultValue="1")Integer currentPage){
+        List<Cart> cartList = cartService.loadAll(currentPage);
+        PageInfo<Cart> page=new PageInfo<Cart>(cartList);
+        request.setAttribute("pageInfo",page);
+        return "cart/index";
+    }
+
+    @PostMapping("/del")
+    @ResponseBody
+    public Result del(Integer id){
+        int n = cartService.delById(id);
+        if(n==1)
+            return new Result("200","删除成功",null);
+        return new Result("500","删除失败",null);
+    }
 
     /**
      * restful - http动词

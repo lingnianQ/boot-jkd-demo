@@ -32,7 +32,7 @@
                 <li class="active"><a href="/boot/phone/index">首页</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#myModal">登录</a></li>
                 <li><a href="#">注册</a></li>
-                <li><a href="#">我的购物车</a></li>
+                <li><a href="/boot/cart/index">我的购物车</a></li>
 
                 <c:if test="${user!=null}">
                     <li><a href="/boot/phone/exit">安全退出</a></li>
