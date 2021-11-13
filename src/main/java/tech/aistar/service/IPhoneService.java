@@ -15,4 +15,5 @@ import java.util.List;
 public interface IPhoneService extends Serializable {
     List<Phone> loadAll();
     List<Phone> loadAll(String name,Integer currentPage);
+    Phone getById(Integer id);
 }

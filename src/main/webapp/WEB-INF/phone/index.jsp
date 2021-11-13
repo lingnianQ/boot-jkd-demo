@@ -49,6 +49,9 @@
                         <p class="text-center text-danger">价格:${p.price}</p>
                         <p class="text-success text-center" >${p.remark}</p>
                     </div>
+                    <div>
+                        <a href="javascript:add_cart(${p.id})"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+                    </div>
                 </div>
             </div>
         </c:forEach>
@@ -83,6 +86,16 @@
         function search(){
             let phoneName = $("#phoneName").val();
             window.location='/boot/phone/index?currentPage=1&'+'name='+phoneName;
+        }
+        function add_cart(id){
+            //通过ajax技术
+            $.post('/boot/cart/add',{id:id},function(res){
+                if(res.code==200){
+                    alert("添加购物车成功");
+                }else{
+                    alert("添加购物车失败");
+                }
+            })
         }
     </script>
 </body>

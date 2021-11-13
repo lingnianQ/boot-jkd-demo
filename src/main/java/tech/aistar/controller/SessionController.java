@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 /**
  * 本类用来演示: session作用域
  *
- * @author: success
+ * @author: Q
  * @date: 2021/11/6 9:33 上午
  */
 @RestController

@@ -32,4 +32,9 @@ public class PhoneServiceImpl implements IPhoneService {
         return phoneMapper.getAll(name);
     }
 
+    @Override
+    public Phone getById(Integer id) {
+        return phoneMapper.getById(id);
+    }
+
 }

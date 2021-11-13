@@ -33,7 +33,7 @@ public interface PhoneMapper {
      */
 
     @Select("select * from t_phone where id=#{id}")
-    Phone findById(Integer id);
+    Phone getById(Integer id);
 
     /**
      * 根据用户名进行插叙 - 用户名在注册(插入)必须要唯一性

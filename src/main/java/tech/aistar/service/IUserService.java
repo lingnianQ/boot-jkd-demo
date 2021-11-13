@@ -6,7 +6,7 @@ import tech.aistar.model.User;
 /**
  * 本类用来演示: 用户的业务逻辑层
  *
- * @author: success
+ * @author: Q
  * @date: 2021/10/30 2:47 下午
  */
 

@@ -27,7 +27,8 @@ public class PhoneController {
     @Autowired
     private IPhoneService phoneService;
     @GetMapping("/index")
-    public String index(HttpServletRequest request,String name ,Model model, @RequestParam(value = "currentPage",required=false,defaultValue="1")Integer currentPage){
+    public String index(HttpServletRequest request,String name ,Model model,
+                        @RequestParam(value = "currentPage",required=false,defaultValue="1")Integer currentPage){
 
 //        List<Phone> phoneList = phoneService.loadAll(name,currentPage);
 //        //放入到request作用域中
