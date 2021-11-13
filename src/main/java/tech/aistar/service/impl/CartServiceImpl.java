@@ -6,12 +6,7 @@ import tech.aistar.mapper.CartMapper;
 import tech.aistar.model.Cart;
 import tech.aistar.service.ICartService;
 
-/**
- * 本类用来演示:
- *
- * @author: success
- * @date: 2021/11/13 9:39 上午
- */
+
 @Service
 public class CartServiceImpl implements ICartService {
 
