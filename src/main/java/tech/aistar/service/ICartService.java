@@ -12,6 +12,8 @@ public interface ICartService {
 
     int update(Integer id);
 
+    int updateSup(Integer id);
+
     List<Cart> loadAll(Integer currentPage);
 
 

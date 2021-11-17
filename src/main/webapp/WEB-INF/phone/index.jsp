@@ -89,7 +89,7 @@
         }
         function add_cart(id){
             //通过ajax技术
-            $.post('/boot/cart/add',{id:id},function(res){
+            $.post('/boot/cart/add',{pid:id},function(res){
                 if(res.code==200){
                     alert("添加购物车成功");
                 }else{

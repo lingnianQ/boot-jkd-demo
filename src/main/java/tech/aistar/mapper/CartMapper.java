@@ -21,6 +21,9 @@ public interface CartMapper {
     @Update("update shop_cart set num=num+1,total=num*price where id=#{id}")
     int update(Integer id);
 
+    @Update("update shop_cart set num=num-1,total=num*price where id=#{id}")
+    int updateSup(Integer id);
+
     @Select("select * from shop_cart")
     List<Cart> findAll();
 

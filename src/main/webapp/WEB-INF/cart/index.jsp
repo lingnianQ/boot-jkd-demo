@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>首页</title>
+    <title>我的购物车</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/boot/plugins/bs/css/bootstrap.min.css">
@@ -34,25 +34,41 @@
                 <caption>响应式表格布局</caption>
                 <thead>
                 <tr>
-                    <th><input type="checkbox"> </th>
+                    <th><input type="checkbox" id="checkAll" onclick=""></th>
                     <th>序号</th>
                     <th>产品名</th>
                     <th>产品图</th>
                     <th>单价</th>
-                    <th>购买数量</th>
+                    <th></th>
+                    <th class="text-center">购买数量</th>
+                    <th></th>
                     <th>总价</th>
-                    <th>操作</th>
+                    <th><span class="text-danger glyphicon glyphicon-trash">删除选中</span></th>
                 </tr>
                 </thead>
                 <tbody id="outer">
                 <c:forEach items="${pageInfo.list}" var="c" varStatus="vs">
                     <tr>
-                        <td><input type="checkbox"> </td>
+                        <td><input type="checkbox"></td>
                         <td>${vs.count}</td>
                         <td>${c.name}</td>
                         <td><img src="/boot/imgs/${c.url}"></td>
                         <td>${c.price}</td>
-                        <td>${c.num}</td>
+                        <td class="text-right">
+                            <a <c:if test="${c.num>1}">
+                                    href="javascript:sup_cart(${c.id})">
+                                </c:if>
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </a>
+                        </td>
+                        <td class="text-center" id="num">
+                            ${c.num}
+                        </td>
+                        <td class="text-left">
+                            <a href="javascript:add_cart(${c.id})">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </td>
                         <td>${c.total}</td>
                         <td>
                             <button onclick="del_cart(this,${c.id})" type="button" class="btn btn-link">
@@ -71,18 +87,18 @@
     <%--     当前页为第一页时href="javascript:void(0)" 禁用 a 标签的点击时间事件--%>
     <%--                                        当前页不是第一页时请求url 中返回currentPage=${pageInfo.pageNum - 1 } 当前页 -1--%>
     <a      <c:if test="${pageInfo.pageNum == pageInfo.firstPage}"> href="javascript:void(0)" class="disabled"</c:if>
-            <c:if test="${pageInfo.pageNum != pageInfo.firstPage;empty name}">href="${pageContext.request.contextPath}/cart/index?currentPage=${pageInfo.pageNum - 1 }"</c:if>
+            <c:if test="${pageInfo.pageNum != pageInfo.firstPage}">href="${pageContext.request.contextPath}/cart/index?currentPage=${pageInfo.pageNum - 1 }"</c:if>
     ><strong class="h1">上一页</strong></a>
     <!-- foreach 从 1 开始 到 总页数结束  遍历输出 -->
     <c:forEach begin="1" end="${pageInfo.pages }" varStatus="status">
-        <a <c:if test="${pageInfo.pageNum != pageInfo.firstPage;empty name}">href="${pageContext.request.contextPath}/cart/index?currentPage=${status.count }"</c:if>
+        <a <c:if test="${pageInfo.pageNum != pageInfo.firstPage}">href="${pageContext.request.contextPath}/cart/index?currentPage=${status.count }"</c:if>
            <c:if test="${status.count == pageInfo.pageNum}">class="select"</c:if>><strong class="h1">${status.count }</strong></a>
     </c:forEach>
     <%--   当前页为最后一页时href="javascript:void(0)" 禁用 a 标签的点击时间事件--%>
     <%--                                        当前页不是最后一页时请求url 中返回currentPage=${pageInfo.pageNum - 1 } 当前页 -1--%>
 
     <a      <c:if test="${pageInfo.pageNum == pageInfo.lastPage}">class="disabled" href="javascript:void(0)"</c:if>
-            <c:if test="${pageInfo.pageNum != pageInfo.lastPage;empty name}">href="${pageContext.request.contextPath}/cart/index?currentPage=${pageInfo.pageNum + 1 }"</c:if>
+            <c:if test="${pageInfo.pageNum != pageInfo.lastPage}">href="${pageContext.request.contextPath}/cart/index?currentPage=${pageInfo.pageNum + 1 }"</c:if>
     ><strong class="h1">下一页</strong></a>
     <%--    <button type="button" onclick="pageNext()">1234</button>--%>
 </div>
@@ -96,6 +112,20 @@
             if(res.code==200){
                 //js操作dom - js删除tr
                 $(obj).parent().parent().remove();
+            }
+        })
+    }
+    function sup_cart(id){
+        $.post('/boot/cart/supCart',{id:id},function(res){
+            if(res.code==200){
+                window.location.reload();
+            }
+        })
+    }
+    function add_cart(id){
+        $.post('/boot/cart/addCart',{id:id},function(res){
+            if(res.code==200){
+                window.location.reload();
             }
         })
     }

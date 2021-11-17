@@ -48,6 +48,23 @@ public class CartController {
         return new Result("500","删除失败",null);
     }
 
+    @PostMapping("/supCart")
+    @ResponseBody
+    public Result sup(Integer id){
+        int n = cartService.updateSup(id);
+        if(n==1)
+            return new Result("200","减少成功",null);
+        return new Result("500","减少失败",null);
+    }
+
+    @PostMapping("/addCart")
+    @ResponseBody
+    public Result add(Integer id){
+        int n = cartService.update(id);
+        if(n==1)
+            return new Result("200","增加成功",null);
+        return new Result("500","增加失败",null);
+    }
     /**
      * restful - http动词
      *
@@ -56,19 +73,19 @@ public class CartController {
      * put - 修改
      * delete - 删除
      *
-     * @param id 产品id
+     * @param pid 产品id
      * @return
      */
     @ResponseBody
     @PostMapping("/add")
-    public Result addCart(Integer id, HttpServletRequest request){
+    public Result addCart(Integer pid, HttpServletRequest request){
         //获取session
         HttpSession session = request.getSession();
         //取出登录的用户
         User user = (User) session.getAttribute("user");
 
         //判断一下当前的用户是否添加过这个商品
-        Cart c = cartService.find(id,user.getId());
+        Cart c = cartService.find(pid,user.getId());
         if(c != null){
             //说明是存在的...
             //更新操作 - update
@@ -82,7 +99,7 @@ public class CartController {
         Cart cart = new Cart();
 
         //根据产品的id查询出这个产品
-        Phone phone = phoneService.getById(id);
+        Phone phone = phoneService.getById(pid);
 
         cart.setIntro(phone.getRemark());
 
