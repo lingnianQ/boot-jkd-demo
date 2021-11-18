@@ -16,6 +16,7 @@ public interface ICartService {
 
     List<Cart> loadAll(Integer currentPage);
 
-
     int delById(Integer id);
+
+    void batchDeletes(List delList);
 }

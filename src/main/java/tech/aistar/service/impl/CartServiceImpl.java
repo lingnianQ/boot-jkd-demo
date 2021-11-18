@@ -47,4 +47,13 @@ public class CartServiceImpl implements ICartService {
         return cartMapper.delById(id);
     }
 
+    /**
+     * 批量删除
+     * @param delList
+     */
+    @Override
+    public void batchDeletes(List delList) {
+        cartMapper.batchDeletes(delList);
+    }
+
 }

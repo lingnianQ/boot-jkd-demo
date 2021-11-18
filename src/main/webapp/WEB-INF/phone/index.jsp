@@ -67,13 +67,12 @@
     ><strong class="h1">上一页</strong></a>
     <!-- foreach 从 1 开始 到 总页数结束  遍历输出 -->
     <c:forEach begin="1" end="${pageInfo.pages }" varStatus="status">
-        <a <c:if test="${pageInfo.pageNum != pageInfo.firstPage;empty name}">href="${pageContext.request.contextPath}/phone/index?currentPage=${status.count }"</c:if>
+        <a <c:if test="${not empty pageInfo.pageNum;empty name}">href="${pageContext.request.contextPath}/phone/index?currentPage=${status.count }"</c:if>
            <c:if test="${pageInfo.pageNum != pageInfo.firstPage;not empty name}">href="${pageContext.request.contextPath}/phone/index?currentPage=${status.count}&name=${name}"</c:if>
            <c:if test="${status.count == pageInfo.pageNum}">class="select"</c:if>><strong class="h1">${status.count }</strong></a>
     </c:forEach>
 <%--   当前页为最后一页时href="javascript:void(0)" 禁用 a 标签的点击时间事件--%>
 <%--                                        当前页不是最后一页时请求url 中返回currentPage=${pageInfo.pageNum - 1 } 当前页 -1--%>
-
     <a      <c:if test="${pageInfo.pageNum == pageInfo.lastPage}">class="disabled" href="javascript:void(0)"</c:if>
             <c:if test="${pageInfo.pageNum != pageInfo.lastPage;empty name}">href="${pageContext.request.contextPath}/phone/index?currentPage=${pageInfo.pageNum + 1 }"</c:if>
             <c:if test="${pageInfo.pageNum != pageInfo.lastPage;not empty name}">href="${pageContext.request.contextPath}/phone/index?currentPage=${pageInfo.pageNum + 1 }&name=${name}"</c:if>

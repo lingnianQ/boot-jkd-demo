@@ -32,4 +32,6 @@ public interface CartMapper {
 
     @Select("select * from shop_cart")
     List<Cart> getAll();
+
+    void batchDeletes(List delList);
 }

@@ -12,7 +12,9 @@ import tech.aistar.service.ICartService;
 import tech.aistar.service.IPhoneService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,6 +48,17 @@ public class CartController {
         if(n==1)
             return new Result("200","删除成功",null);
         return new Result("500","删除失败",null);
+    }
+    @PostMapping("allDel")
+    @ResponseBody
+    public void allDel(HttpServletRequest request, HttpServletResponse response){
+        String items = request.getParameter("delitems");
+        List<String> delList = new ArrayList<String>();
+        String[] strs = items.split(",");
+        for (String str : strs) {
+            delList.add(str);
+        }
+        cartService.batchDeletes(delList);
     }
 
     @PostMapping("/supCart")
