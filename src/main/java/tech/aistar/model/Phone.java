@@ -28,4 +28,5 @@ public class Phone implements Serializable {
 
     private Integer phoneTypeId;
 
+    private Integer num;
 }

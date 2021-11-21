@@ -35,9 +35,19 @@ public class CartController {
 
     @GetMapping("/index")
     public String index(HttpServletRequest request, @RequestParam(value = "currentPage",required=false,defaultValue="1")Integer currentPage){
-        List<Cart> cartList = cartService.loadAll(currentPage);
+        HttpSession session=request.getSession();
+        User user=(User) session.getAttribute("user");
+        List<Cart> cartList = cartService.loadAll(currentPage, user.getId());
         PageInfo<Cart> page=new PageInfo<Cart>(cartList);
         request.setAttribute("pageInfo",page);
+        return "cart/index";
+    }
+
+    @PostMapping("cartYN")
+    @ResponseBody
+    public String cartYN(Integer id){
+
+
         return "cart/index";
     }
 
@@ -86,19 +96,19 @@ public class CartController {
      * put - 修改
      * delete - 删除
      *
-     * @param pid 产品id
+     * @param id 产品id
      * @return
      */
     @ResponseBody
     @PostMapping("/add")
-    public Result addCart(Integer pid, HttpServletRequest request){
+    public Result addCart(Integer id, HttpServletRequest request){
         //获取session
         HttpSession session = request.getSession();
         //取出登录的用户
         User user = (User) session.getAttribute("user");
 
         //判断一下当前的用户是否添加过这个商品
-        Cart c = cartService.find(pid,user.getId());
+        Cart c = cartService.find(id,user.getId());
         if(c != null){
             //说明是存在的...
             //更新操作 - update
@@ -112,7 +122,7 @@ public class CartController {
         Cart cart = new Cart();
 
         //根据产品的id查询出这个产品
-        Phone phone = phoneService.getById(pid);
+        Phone phone = phoneService.getById(id);
 
         cart.setIntro(phone.getRemark());
 
@@ -132,7 +142,6 @@ public class CartController {
         //智慧城市
         //酒店...
         //手机-打电话-上网-直播-     [穿戴设备+智能家居]
-
 
         cart.setUserId(user.getId());
 

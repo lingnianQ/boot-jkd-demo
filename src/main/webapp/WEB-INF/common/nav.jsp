@@ -36,7 +36,7 @@
 
                 <c:if test="${user!=null}">
                     <li><a href="/boot/phone/exit">安全退出</a></li>
-                    <li><a href="#">我的收藏</a></li>
+                    <li><a href="/boot/collect/index">我的收藏</a></li>
                     <li><a href="#">我的订单</a></li>
                     <li><img style="width: 50px;height: 50px;border-radius: 50%;padding: 2px" src="/boot/imgs/1.jpg"></li>
                 </c:if>

@@ -37,9 +37,9 @@ public class CartServiceImpl implements ICartService {
     }
 
     @Override
-    public List<Cart> loadAll(Integer currentPage) {
+    public List<Cart> loadAll(Integer currentPage,Integer userId) {
         PageHelper.startPage(currentPage,5);
-        return cartMapper.getAll();
+        return cartMapper.getAll(userId);
     }
 
     @Override

@@ -18,11 +18,15 @@ public interface PhoneMapper {
      * 查询所有的手机种类
      * @return
      */
-    @Select("select * from t_phone")
+    @Select("select * from t_phone order by num desc")
     List<Phone> findAll();
 
     List<Phone> getAll(String name);
 
+    @Update("update t_phone set num=num+1 where id=#{id}")
+    int addCount(Integer id);
+    @Update("update t_phone set num=num-1 where id=#{id}")
+    int supCount(Integer id);
     /**
      * 根据id进行查询 - id是主键列 - 能够唯一确定一行[元组] - 唯一
      * 主键列特点 - 非空且唯一的.

@@ -22,7 +22,8 @@ public class PhoneServiceImpl implements IPhoneService {
     @Autowired
     private PhoneMapper phoneMapper;
     @Override
-    public List<Phone> loadAll() {
+    public List<Phone> findAll(String name,Integer currentPage) {
+        PageHelper.startPage(currentPage,7);
         return phoneMapper.findAll();
     }
 
@@ -35,6 +36,16 @@ public class PhoneServiceImpl implements IPhoneService {
     @Override
     public Phone getById(Integer id) {
         return phoneMapper.getById(id);
+    }
+
+    @Override
+    public int addCount(Integer id) {
+        return phoneMapper.addCount(id);
+    }
+
+    @Override
+    public int supCount(Integer id) {
+        return phoneMapper.supCount(id);
     }
 
 }

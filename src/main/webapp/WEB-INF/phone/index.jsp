@@ -42,8 +42,7 @@
         <c:forEach items="${pageInfo.list}" var="p">
             <div class="col-sm-6 col-md-3">
                 <div class="thumbnail">
-                    <img src="/boot/imgs/${p.urls}"
-                         alt="通用的占位符缩略图">
+                    <img src="/boot/imgs/${p.urls}" alt="通用的占位符缩略图">
                     <div class="caption">
                         <h3 class="text-center text-info">${p.phoneName}</h3>
                         <p class="text-center text-danger">价格:${p.price}</p>
@@ -51,6 +50,7 @@
                     </div>
                     <div>
                         <a href="javascript:add_cart(${p.id})"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+                        <a href="javascript:add_heart(this,${p.id})"><span class="glyphicon glyphicon-heart id="${p.id}"></span></a>
                     </div>
                 </div>
             </div>
@@ -61,6 +61,7 @@
 <div class="page text-center clearfix" >
 <%--     当前页为第一页时href="javascript:void(0)" 禁用 a 标签的点击时间事件--%>
 <%--                                        当前页不是第一页时请求url 中返回currentPage=${pageInfo.pageNum - 1 } 当前页 -1--%>
+
     <a      <c:if test="${pageInfo.pageNum == pageInfo.firstPage}"> href="javascript:void(0)" class="disabled"</c:if>
             <c:if test="${pageInfo.pageNum != pageInfo.firstPage;empty name}">href="${pageContext.request.contextPath}/phone/index?currentPage=${pageInfo.pageNum - 1 }"</c:if>
             <c:if test="${pageInfo.pageNum != pageInfo.firstPage;not empty name}">href="${pageContext.request.contextPath}/phone/index?currentPage=${pageInfo.pageNum - 1 }&name=${name}"</c:if>
@@ -88,7 +89,7 @@
         }
         function add_cart(id){
             //通过ajax技术
-            $.post('/boot/cart/add',{pid:id},function(res){
+            $.post('/boot/cart/add',{id:id},function(res){
                 if(res.code==200){
                     alert("添加购物车成功");
                 }else{
@@ -96,6 +97,29 @@
                 }
             })
         }
+        function  add_heart(obj,id){
+            $.post('/boot/collect/add',{id: id},function(res){
+                let csP=$
+                if(res.code==201){
+                    alert("取消收藏");
+                }else if (res.code=200){
+                    alert("收藏成功");
+                }else if(res.code=500){
+                    alert("收藏失败")
+                }else if(res.code=501){
+                    alert("取消收藏失败")
+                }
+            })
+        }
+        // function add_heart(obj,id){
+        //     $.post('/boot/collect/add',{id:id},function (res){
+        //         if(res.code==200){
+        //             $(obj).children().css("color","red");
+        //         }else{
+        //             $(obj).children().css("color","black");
+        //         }
+        //     })
+        // }
     </script>
 </body>
 </html>

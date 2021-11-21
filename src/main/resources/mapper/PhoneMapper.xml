@@ -12,5 +12,6 @@
                 and phoneName like concat('%',#{phoneName},'%')
             </if>
         </where>
+        order by num desc
     </select>
 </mapper>

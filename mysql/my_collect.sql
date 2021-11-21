@@ -1,6 +1,6 @@
 use jkds;
-drop table if exists shop_cart;
-create table shop_cart(
+drop table if exists my_collect;
+create table my_collect(
 	 id int(7) not null auto_increment,
      phone_id int(7) not null,
      name varchar(100) not null,
@@ -10,7 +10,7 @@ create table shop_cart(
      num int(5) not null,
      total float(15,1) not null,
      user_id int(5) not null,
-     create_date datetime NOT NULL default current_timestamp on update current_timestamp comment '修改时间',
+     create_date datetime,
      status int(1),
      primary key(id)
 )ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;

@@ -1,15 +1,9 @@
-<%@ page import="java.util.Date" %><%--
-  Created by IntelliJ IDEA.
-  User: sytsn
-  Date: 2021/11/13
-  Time: 14:23
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>我的购物车</title>
+    <title>我的收藏</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/boot/plugins/bs/css/bootstrap.min.css">
@@ -18,6 +12,7 @@
             width: 80px;
             height: 80px;
         }
+
     </style>
     <script src="/boot/plugins/jquery/jquery.min.js"></script>
 </head>
@@ -39,13 +34,13 @@
                     <th>产品名</th>
                     <th>产品图</th>
                     <th>单价</th>
-                    <th></th>
-                    <th class="text-center">购买数量</th>
-                    <th></th>
-                    <th>总价</th>
+<%--                    <th></th>--%>
+<%--                    <th class="text-center">购买数量</th>--%>
+<%--                    <th></th>--%>
+<%--                    <th>总价</th>--%>
                     <th>
                         <button onclick="allDel()" type="button" class="btn btn-link">
-                            <span class="text-danger glyphicon glyphicon-trash">删除选中</span>
+                            <span class="text-danger glyphicon glyphicon-heart">取消选中收藏</span>
                         </button>
                     </th>
                 </tr>
@@ -58,25 +53,25 @@
                         <td>${c.name}</td>
                         <td><img src="/boot/imgs/${c.url}"></td>
                         <td>${c.price}</td>
-                        <td class="text-right">
-                            <a <c:if test="${c.num>1}">
-                                    href="javascript:sup_cart(${c.id})">
-                                </c:if>
-                                <span class="glyphicon glyphicon-minus"></span>
-                            </a>
-                        </td>
-                        <td class="text-center" id="num">
-                            ${c.num}
-                        </td>
-                        <td class="text-left">
-                            <a href="javascript:add_cart(${c.id})">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </a>
-                        </td>
-                        <td>${c.total}</td>
+<%--                        <td class="text-right">--%>
+<%--                            <a <c:if test="${c.num>1}">--%>
+<%--                                href="javascript:sup_cart(${c.id})">--%>
+<%--                            </c:if>--%>
+<%--                            <span class="glyphicon glyphicon-minus"></span>--%>
+<%--                            </a>--%>
+<%--                        </td>--%>
+<%--                        <td class="text-center" id="num">--%>
+<%--                                ${c.num}--%>
+<%--                        </td>--%>
+<%--                        <td class="text-left">--%>
+<%--                            <a href="javascript:add_cart(${c.id})">--%>
+<%--                                <span class="glyphicon glyphicon-plus"></span>--%>
+<%--                            </a>--%>
+<%--                        </td>--%>
+<%--                        <td>${c.total}</td>--%>
                         <td>
                             <button onclick="del_cart(this,${c.id})" type="button" class="btn btn-link">
-                                <span class="text-danger glyphicon glyphicon-trash"></span>
+                                <span class="text-danger glyphicon glyphicon-heart"></span>
                             </button>
                         </td>
                     </tr>
@@ -106,19 +101,10 @@
     <%--    <button type="button" onclick="pageNext()">1234</button>--%>
 </div>
 
-
-<%--<div class="text-center">--%>
-<%--    <ul class="pagination">--%>
-<%--        <c:forEach var="i" begin="1" end="7">--%>
-<%--            <li><a href="/boot/cart/index?currentPage=${i} ">${i}</a></li>--%>
-<%--        </c:forEach>--%>
-<%--    </ul>--%>
-<%--</div>--%>
-
 <script src="/boot/plugins/bs/js/bootstrap.min.js"></script>
 <script>
     function del_cart(obj,id){
-        $.post('/boot/cart/del',{id:id},function(res){
+        $.post('/boot/collect/del',{id:id},function(res){
             if(res.code==200){
                 //js操作dom - js删除tr
                 $(obj).parent().parent().remove();
@@ -167,22 +153,22 @@
             alert("请至少选择一项!");
             return false;
         }
-        if(confirm("确定删除所选项目?")){
+        if(confirm("确定取消收藏所选项目?")){
             let checkedList = new Array();
             $("input[name='ck']:checked").each(function(){
                 checkedList.push($(this).val());
             });
             $.ajax({
                 type:"POST",
-                url:"/boot/cart/allDel",
+                url:"/boot/collect/allDel",
                 data:{"delitems":checkedList.toString()},
                 datatype:"html",
                 success:function(data){
-                    alert("删除成功！");
+                    alert("取消成功！");
                     window.location.reload();
                 },
                 error:function(data){
-                    alert("删除失败！");
+                    alert("取消失败！");
                     window.location.reload();
                 }
             });

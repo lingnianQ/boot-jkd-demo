@@ -24,14 +24,11 @@ public interface CartMapper {
     @Update("update shop_cart set num=num-1,total=num*price where id=#{id}")
     int updateSup(Integer id);
 
-    @Select("select * from shop_cart")
-    List<Cart> findAll();
-
     @Delete("delete from shop_cart where id=#{id}")
     int delById(Integer id);
 
-    @Select("select * from shop_cart")
-    List<Cart> getAll();
+    @Select("select * from shop_cart where user_id=#{userId} order by create_date desc")
+    List<Cart> getAll(@Param("userId") Integer userId);
 
     void batchDeletes(List delList);
 }
